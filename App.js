@@ -24,14 +24,41 @@ const recupererRessources = async () => {
   }
 };
 
+// import CustomFontLoader from './loadFont';
+
+// const CustomFontLoader = () => {
+//   const [loaded] = useFonts({
+//     ComicSansMS3: require('./font/ComicSansMS3.ttf'),
+//   });
+
+//   if (!loaded) {
+//     return <Text>Loading...</Text>;
+//   }
+
+//   return (
+//     <View>
+//       <Text style={{ fontFamily: 'ComicSansMS3' }}>Text with custom font</Text>
+//     </View>
+//   );
+// };
+
 const HomeScreen = () => {
+  const [loaded] = useFonts({
+    ComicSansMS3: require('./font/ComicSansMS3.ttf'),
+    marianne_bold: require('./font/marianne_bold.otf'),
+  });
+
+  if (!loaded) {
+    return <Text>Loading...</Text>;
+  }
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      
       <Header />
       <View></View>
-      <View style={styles.titleContainer}>
-        <Text style={styles.titleFirstPart}>(RE)</Text>
-        <Text style={styles.titleSecondPart}>SOURCES{"\n"}LATIONNELLES</Text>
+      <View style={[styles.titleContainer]}>
+        <Text style={[styles.titleFirstPart, styles.marianne_bold]}>(RE)</Text>
+        <Text style={[styles.titleSecondPart, styles.marianne_bold]}>SOURCES{"\n"}LATIONNELLES</Text>
       </View>
       <Text style={styles.subtitle}>La plateforme pour améliorer vos relations</Text>
       <View style={styles.popularResourcesContainer}>
@@ -84,15 +111,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 20,
+    fontFamily: 'ComicSansMS3',
+    
   },
   titleFirstPart: {
     fontSize: 60,
-    fontWeight: 'bold',
     color: 'black',
   },
   titleSecondPart: {
     fontSize: 24,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     color: 'black',
     marginLeft: 10,
     marginTop: 15,
@@ -152,6 +180,12 @@ const styles = StyleSheet.create({
   infoText: {
     fontSize: 16,
   },
+  comic_sans_ms: {
+    fontFamily: 'ComicSansMS3',
+  },
+  marianne_bold: {
+    fontFamily: 'marianne_bold',
+  }
 });
 
 recupererRessources();
