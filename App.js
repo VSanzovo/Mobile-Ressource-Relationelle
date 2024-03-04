@@ -1,0 +1,136 @@
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import Footer from './Footer';
+import Header from './Header';
+
+const HomeScreen = () => {
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
+      <Header />
+      <View></View>
+      <View style={styles.titleContainer}>
+        <Text style={styles.titleFirstPart}>(RE)</Text>
+        <Text style={styles.titleSecondPart}>SOURCES{"\n"}LATIONNELLES</Text>
+      </View>
+      <Text style={styles.subtitle}>La plateforme pour améliorer vos relations</Text>
+      <View style={styles.popularResourcesContainer}>
+        <Text style={styles.resourcesTitle}>Ressources Populaires</Text>
+        <View style={styles.cardGroup}>
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>Primary card title</Text>
+            <Text style={styles.cardText}>Sed quis enim et augue tincidunt porta...</Text>
+            <Text style={styles.cardCategory}>Catégorie</Text>
+          </View>
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>Primary card title</Text>
+            <Text style={styles.cardText}>Suspendisse sapien ipsum, vehicula sit amet...</Text>
+            <Text style={styles.cardCategory}>Catégorie</Text>
+          </View>
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>Primary card title</Text>
+            <Text style={styles.cardText}>Mauris interdum placerat diam, ut tempus...</Text>
+            <Text style={styles.cardCategory}>Catégorie</Text>
+          </View>
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>Primary card title</Text>
+            <Text style={styles.cardText}>Nullam eu dapibus tellus. Pellentesque sit...</Text>
+            <Text style={styles.cardCategory}>Catégorie</Text>
+          </View>
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>Primary card title</Text>
+            <Text style={styles.cardText}>Etiam rutrum vestibulum lacus quis...</Text>
+            <Text style={styles.cardCategory}>Catégorie</Text>
+          </View>
+        </View>
+      </View>
+      <View style={styles.infoContainer}>
+        <Text style={styles.infoTitle}>« Le Projet »</Text>
+        <Text style={styles.infoText}>Praesent faucibus, lacus non eleifend rhoncus...</Text>
+      </View>
+      <Footer />
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+    backgroundColor: '#f5f5f5',
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+  titleFirstPart: {
+    fontSize: 60,
+    fontWeight: 'bold',
+    color: 'black',
+  },
+  titleSecondPart: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'black',
+    marginLeft: 10,
+    marginTop: 15,
+  },
+  subtitle: {
+    textAlign: 'center',
+    fontStyle: 'italic',
+    marginBottom: 20,
+  },
+  popularResourcesContainer: {
+    marginBottom: 20,
+  },
+  resourcesTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#000080',
+    marginBottom: 10,
+  },
+  cardGroup: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  card: {
+    width: '48%',
+    backgroundColor: '#ffffff',
+    marginBottom: 10,
+    padding: 10,
+    borderRadius: 5,
+    elevation: 2,
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  cardText: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  cardCategory: {
+    fontSize: 14,
+    color: '#0000ff',
+  },
+  infoContainer: {
+    backgroundColor: '#ffffff',
+    padding: 10,
+    borderRadius: 5,
+    elevation: 2,
+  },
+  infoTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#000080',
+    marginBottom: 10,
+  },
+  infoText: {
+    fontSize: 16,
+  },
+});
+
+export default HomeScreen;
