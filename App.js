@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import Footer from './Footer';
 import Header from './Header';
 import axios from 'axios';
+import { useFonts } from 'expo-font';
 
 const recupererRessources = async () => {
   try {
