@@ -2,6 +2,27 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import Footer from './Footer';
 import Header from './Header';
+import axios from 'axios';
+
+const recupererRessources = async () => {
+  try {
+      // Remplacez 'URL_DE_VOTRE_API' par l'URL correcte de votre API
+     //   const response = await axios.get('api/recupererRessources');
+        const response = await axios.get('http://10.167.128.104/app-ressources-relationnelles/web/public/api/recupererRessources');
+      // Utilisez les données récupérées ici
+      const data = response.data;
+      console.log(data);
+  } catch (error) {
+        if (axios.isAxiosError(error)) {
+            // Gestion spécifique des erreurs Axios
+            console.error('Erreur Axios', error.message);
+            console.log('Détails Axios', error.response);
+        } else {
+            // Gestion générale des erreurs
+            console.error('Erreur inattendue', error);
+        }
+  }
+};
 
 const HomeScreen = () => {
   return (
@@ -133,4 +154,5 @@ const styles = StyleSheet.create({
   },
 });
 
+recupererRessources();
 export default HomeScreen;
