@@ -1,0 +1,21 @@
+import React from 'react';
+import { Text, View } from 'react-native';
+import { useFonts } from 'expo-font';
+
+const CustomFontLoader = () => {
+  const [loaded] = useFonts({
+    ComicSansMS3: require('./font/ComicSansMS3.ttf'),
+  });
+
+  if (!loaded) {
+    return <Text>Loading...</Text>;
+  }
+
+  return (
+    <View>
+      <Text style={{ fontFamily: 'ComicSansMS3' }}>Text with custom font</Text>
+    </View>
+  );
+};
+
+export default CustomFontLoader;
