@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useFonts } from 'expo-font';
@@ -7,6 +6,8 @@ import axios from 'axios';
 import SettingsScreen from './vueCompte';
 import  MaterialIcons  from 'react-native-vector-icons/Ionicons';
 import styles from './style';
+import { View, Text, StyleSheet, ScrollView, Linking } from 'react-native';
+import { LinkPreview } from '@flyerhq/react-native-link-preview';
 
 const _couleurPrimaire = '#007EA7';
 const _couleurSecondaire = '#007EA7';
@@ -14,13 +15,20 @@ const _couleurSecondaire = '#007EA7';
 //FONCTION PRINCIPALE (PAGE PRINCIPALE)
 function HomeScreen() {
   
-  //CODE DE FLORIANT JE SAIS PAS CE QU'IL FAIT
   const truncateContent = (content, maxLength) => {
     if (content.length > maxLength) {
-      return content.substring(0, maxLength) + '...'; // Ajoutez des points de suspension pour indiquer que le texte a été tronqué
+      return content.substring(0, maxLength) + '...'; 
     }
     return content;
   };
+
+  // Savoir si mon contenu est un lien vers YouTube
+  const isYouTubeLink = (text) => {
+    const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+
+    return youtubeRegex.test(text);
+  };
+
   const [premiereRessource, setPremiereRessource] = useState([]);
   const recupererRessources = async () => {
     try {
@@ -51,6 +59,7 @@ function HomeScreen() {
   if (!loaded) {
     return <Text>Loading...</Text>;
   }
+  
   return (
     //ICI ON FAIT LA PAGE CLASSIQUE
     <View >
@@ -68,10 +77,23 @@ function HomeScreen() {
       <View style={styles.popularResourcesContainer}>
         <Text style={styles.resourcesTitle}>Ressources Populaires</Text>
       <View style={styles.cardGroup}>
-        {premiereRessource.map((ressource, index) => (
-          <View key={index} style={styles.card}>
-            <Text style={styles.cardTitle}>{ressource.RES_NOM}</Text>
-            <Text style={styles.cardText}>{truncateContent(ressource.RES_CONTENU, 75)}</Text>
+      {premiereRessource.map((ressource, index) => (
+    <View key={index} style={styles.card}>
+      <Text style={styles.cardTitle}>{ressource.RES_NOM}</Text>
+      {isYouTubeLink(ressource.RES_CONTENU) ? (
+        // Si le contenu est un lien YouTube, utilisez LinkPreview
+        <LinkPreview
+          text={ressource.RES_CONTENU}
+          visible={false}
+          style={{ display: 'none' }}
+          onPress={(url) => {
+            Linking.openURL(url);
+          }}
+        />
+      ) : (
+        // Sinon, affichez le texte tronqué
+        <Text style={styles.cardText}>{truncateContent(ressource.RES_CONTENU, 75)}</Text>
+      )}
             <Text style={styles.cardCategory}>{ressource.RES_ID} (à modifier)</Text>
           </View>
         ))}
@@ -82,10 +104,11 @@ function HomeScreen() {
         <Text style={styles.infoText}>Praesent faucibus, lacus non eleifend rhoncus...</Text>
       </View>
     </ScrollView>
+    <LinkPreview text='This link https://github.com/flyerhq can be extracted from the text' />
     {/* ================================ */}
     </View>
   );
-}
+};
 
 //CONSTANTES DE COULEURS
 
