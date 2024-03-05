@@ -1,25 +1,45 @@
-import * as React from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import Footer from './Footer';
+import Header from './Header';
+import axios from 'axios';
 import { useFonts } from 'expo-font';
-import SettingsScreen from './vueRessources';
-import  MaterialIcons  from 'react-native-vector-icons/Ionicons';
 
 function HomeScreen() {
-
-  // Chargement des fonts
   const [loaded] = useFonts({
     ComicSansMS3: require('./font/ComicSansMS3.ttf'),
     marianne_bold: require('./font/marianne_bold.otf'),
   });
+  
+  const truncateContent = (content, maxLength) => {
+    if (content.length > maxLength) {
+      return content.substring(0, maxLength) + '...'; // Ajoutez des points de suspension pour indiquer que le texte a été tronqué
+    }
+    return content;
+  };
+  const [premiereRessource, setPremiereRessource] = useState([]);
+  const recupererRessources = async () => {
+    try {
+      const response = await axios.get('http://10.167.128.104/app-ressources-relationnelles/web/public/api/recupererRessources');
+      const data = response.data;
+
+      if (data && data.ressources && data.ressources.length > 0) {
+        const premieresRessources = data.ressources.slice(0, 6); // Sélectionnez les 6 premières ressources
+        setPremiereRessource(premieresRessources);
+      }
+    } catch (error) {
+      // Gestion des erreurs
+      console.error('Erreur lors de la récupération des ressources', error);
+    }
+  };
+
+  useEffect(() => {
+    recupererRessources();
+  }, []); // Le tableau vide signifie que cela s'exécute une seule fois lors du montage du composant
 
   if (!loaded) {
     return <Text>Loading...</Text>;
   }
-
-
-
   return (
     //ICI ON FAIT LA PAGE WEB
     <View >
@@ -36,33 +56,15 @@ function HomeScreen() {
       <Text style={styles.subtitle}>La plateforme pour améliorer vos relations</Text>
       <View style={styles.popularResourcesContainer}>
         <Text style={styles.resourcesTitle}>Ressources Populaires</Text>
-        <View style={styles.cardGroup}>
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>Primary card title</Text>
-            <Text style={styles.cardText}>Sed quis enim et augue tincidunt porta...</Text>
-            <Text style={styles.cardCategory}>Catégorie</Text>
+      <View style={styles.cardGroup}>
+        {premiereRessource.map((ressource, index) => (
+          <View key={index} style={styles.card}>
+            <Text style={styles.cardTitle}>{ressource.RES_NOM}</Text>
+            <Text style={styles.cardText}>{truncateContent(ressource.RES_CONTENU, 75)}</Text>
+            <Text style={styles.cardCategory}>{ressource.RES_ID} (à modifier)</Text>
           </View>
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>Primary card title</Text>
-            <Text style={styles.cardText}>Suspendisse sapien ipsum, vehicula sit amet...</Text>
-            <Text style={styles.cardCategory}>Catégorie</Text>
-          </View>
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>Primary card title</Text>
-            <Text style={styles.cardText}>Mauris interdum placerat diam, ut tempus...</Text>
-            <Text style={styles.cardCategory}>Catégorie</Text>
-          </View>
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>Primary card title</Text>
-            <Text style={styles.cardText}>Nullam eu dapibus tellus. Pellentesque sit...</Text>
-            <Text style={styles.cardCategory}>Catégorie</Text>
-          </View>
-          <View style={styles.card}>
-            <Text style={styles.cardTitle}>Primary card title</Text>
-            <Text style={styles.cardText}>Etiam rutrum vestibulum lacus quis...</Text>
-            <Text style={styles.cardCategory}>Catégorie</Text>
-          </View>
-        </View>
+        ))}
+      </View>
       </View>
       <View style={styles.infoContainer}>
         <Text style={styles.infoTitle}>« Le Projet »</Text>
