@@ -4,14 +4,14 @@ import Footer from './Footer';
 import Header from './Header';
 import axios from 'axios';
 import { useFonts } from 'expo-font';
-
+import Connection from './Connection';
 
 const HomeScreen = () => {
   const [loaded] = useFonts({
     ComicSansMS3: require('./font/ComicSansMS3.ttf'),
     marianne_bold: require('./font/marianne_bold.otf'),
   });
-  
+
   const truncateContent = (content, maxLength) => {
     if (content.length > maxLength) {
       return content.substring(0, maxLength) + '...'; // Ajoutez des points de suspension pour indiquer que le texte a été tronqué
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 20,
     fontFamily: 'ComicSansMS3',
-    
+
   },
   titleFirstPart: {
     fontSize: 60,
@@ -158,6 +158,13 @@ const styles = StyleSheet.create({
     fontFamily: 'marianne_bold',
   }
 });
+const CompleteScreen = () => {
+  return (
+      <View>
+        <HomeScreen />
+        <Connection />
+      </View>
+  );
+};
 
-//recupererRessources();
-export default HomeScreen;
+export default CompleteScreen;
