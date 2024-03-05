@@ -198,3 +198,4 @@ node_modules/react-native-webview/windows/ReactNativeWebView/ReactWebView2Manage
 node_modules/react-native-webview/windows/ReactNativeWebView/ReactWebViewHelpers.cpp
 node_modules/react-native-webview/windows/ReactNativeWebView/ReactWebViewHelpers.h
 node_modules/react-native-webview/windows/ReactNativeWebView/ReactWebViewManager.cpp
+package-lock.json

@@ -8,7 +8,8 @@ import SettingsScreen from './vueCompte';
 import  MaterialIcons  from 'react-native-vector-icons/Ionicons';
 import styles from './style';
 
-
+const _couleurPrimaire = '#007EA7';
+const _couleurSecondaire = '#007EA7';
 
 //FONCTION PRINCIPALE (PAGE PRINCIPALE)
 function HomeScreen() {
@@ -87,8 +88,7 @@ function HomeScreen() {
 }
 
 //CONSTANTES DE COULEURS
-const _couleurPrimaire = '#007EA7';
-const _couleurSecondaire = '#007EA7';
+
 
 
 

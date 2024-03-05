@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       marginBottom: 20,
       fontFamily: 'ComicSansMS3',
+      color:'white',
       
     },
     titleFirstPart: {
@@ -44,6 +45,8 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       flexWrap: 'wrap',
       justifyContent: 'space-between',
+    //   borderColor: 'red',
+    //   borderWidth: 1,
     },
     card: {
       width: '48%',
@@ -98,9 +101,43 @@ const styles = StyleSheet.create({
     account:{
         paddingTop: 10,
         marginTop: 10,
+        color: 'white',
+    },
+    account_card: {
+        borderRadius: 6,
+        elevation: 3,
+        backgroundColor: '#007EA7',
+        shadowOffset: { width: 1, height: 1},
+        shadowColor: '#333333',
+        shadowOpacity: 1,
+        width: '45%',
+        shadowRadius: 10,
+        color: 'white',
+        minHeight: 200,
+        margin: 10,
+        paddingLeft: 15,
+        paddingTop: 15,
+        paddingBottom: 15,
+        paddingRight: 20,
+        
+    },
+    account_cardcontainer:{
+        flex: 1,
+        flexDirection: "row",
+        flexWrap: "wrap",
+        // borderColor: 'red',
+        // borderWidth:1,
+        justifyContent: 'space-between',
+    },
+    account_cardcontent:{
+        color: '#efefef',
+        fontSize: 17,
+    },
+    account_cardTitle:{
+        paddingTop: 5,
+        color: 'white',
+        fontSize: 25,
     }
   });
-  const _couleurPrimaire = '#007EA7';
-  const _couleurSecondaire = '#007EA7';
 
   export default styles;
