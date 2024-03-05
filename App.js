@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import Footer from './Footer';
-import Header from './Header';
-import axios from 'axios';
+import React, {useState, useEffect} from 'react';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useFonts } from 'expo-font';
 import Connection from './Connection';
+import axios from 'axios';
+import SettingsScreen from './vueRessources';
+import  MaterialIcons  from 'react-native-vector-icons/Ionicons';
+
 
 const HomeScreen = () => {
   const [loaded] = useFonts({
@@ -12,6 +15,11 @@ const HomeScreen = () => {
     marianne_bold: require('./font/marianne_bold.otf'),
   });
 
+
+//FONCTION PRINCIPALE (PAGE PRINCIPALE)
+function HomeScreen() {
+
+  //CODE DE FLORIANT JE SAIS PAS CE QU'IL FAIT
   const truncateContent = (content, maxLength) => {
     if (content.length > maxLength) {
       return content.substring(0, maxLength) + '...'; // Ajoutez des points de suspension pour indiquer que le texte a été tronqué
@@ -38,13 +46,24 @@ const HomeScreen = () => {
     recupererRessources();
   }, []); // Le tableau vide signifie que cela s'exécute une seule fois lors du montage du composant
 
+
+    //CHARGEMENT DES POLICES D'ECRITURE
+  const [loaded] = useFonts({
+    ComicSansMS3: require('./font/ComicSansMS3.ttf'),
+    marianne_bold: require('./font/marianne_bold.otf'),
+  });
+
   if (!loaded) {
     return <Text>Loading...</Text>;
   }
-
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Header />
+    //ICI ON FAIT LA PAGE CLASSIQUE
+    <View >
+
+      {/* PAGE SCROLLABLE */}
+      {/* ================================ */}
+        <ScrollView contentContainerStyle={styles.container}>
+
       <View></View>
       <View style={[styles.titleContainer]}>
         <Text style={[styles.titleFirstPart, styles.marianne_bold]}>(RE)</Text>
@@ -68,9 +87,70 @@ const HomeScreen = () => {
         <Text style={styles.infoText}>Praesent faucibus, lacus non eleifend rhoncus...</Text>
       </View>
     </ScrollView>
+    {/* ================================ */}
+    </View>
   );
-};
+}
 
+//CONSTANTES DE COULEURS
+const _couleurPrimaire = '#007EA7';
+const _couleurSecondaire = '#007EA7';
+
+
+
+//FONCTION QUI VA PERMETTRE D'AFFICHER SUR L'ECRAN
+export default function App() {
+  return (
+    <NavigationContainer>
+      <MyTabs/>
+    </NavigationContainer>
+  );
+}
+
+
+//BARRE DE NAVIGATION
+const Tab = createBottomTabNavigator();
+function MyTabs() {
+  return (
+    <Tab.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: _couleurPrimaire ,
+
+      },
+      headerTintColor: '#fff',
+     headerTitleStyle:{
+      // fontFamily: 'marianne_bold',
+     },
+      tabBarActiveTintColor: _couleurSecondaire,
+      tabBarActiveBackgroundColor: 'white', //'#003249', // Couleur du texte des onglets actifs
+      // tabBarInactiveTintColor: '#9b9a9b', // Couleur du texte des onglets inactifs
+      tabBarStyle: {
+        borderRadius: 15,
+        backgroundColor: 'white',//'#007EA7', // Couleur de fond de la barre d'onglets
+        height: 60,
+      },
+      tabBarItemStyle:{
+        borderRadius: 15,
+      },
+
+
+    }} >
+      <Tab.Screen name="Accueil" component={HomeScreen} options={{
+      tabBarIcon: ({color, size }) => (
+        <MaterialIcons name="home-outline" color={color} size={size} />
+      ),
+    }} />
+      <Tab.Screen name="Compte" component={SettingsScreen} options={{
+      tabBarIcon: ({ color, size }) => (
+        <MaterialIcons name="person-circle-outline" color={color} size={size} />
+      ),
+    }} />
+    </Tab.Navigator>
+  );
+}
+
+
+//STYLES EN CSS ?
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
@@ -156,6 +236,12 @@ const styles = StyleSheet.create({
   },
   marianne_bold: {
     fontFamily: 'marianne_bold',
+  },
+  onglet: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
   }
 });
 const CompleteScreen = () => {
