@@ -26,6 +26,7 @@ function HomeScreen() {
   };
 
   const [premiereRessource, setPremiereRessource] = useState([]);
+  const [categories, setCategories] = useState([]);
   const recupererRessources = async () => {
     try {
       const response = await axios.get('http://10.167.128.104/app-ressources-relationnelles/web/public/api/recupererRessources');
@@ -34,6 +35,7 @@ function HomeScreen() {
       if (data && data.ressources && data.ressources.length > 0) {
         const premieresRessources = data.ressources.slice(0, 6); // Sélectionnez les 6 premières ressources
         setPremiereRessource(premieresRessources);
+        setCategories(data.categories);
       }
     } catch (error) {
       // Gestion des erreurs
@@ -55,6 +57,10 @@ function HomeScreen() {
   if (!loaded) {
     return <Text>Loading...</Text>;
   }
+
+  const findCategoryById = (categoryId) => {
+    return categories.find((category) => category.CAT_ID === categoryId);
+  };
   
   return (
     //ICI ON FAIT LA PAGE CLASSIQUE
@@ -72,8 +78,9 @@ function HomeScreen() {
       <Text style={styles.subtitle}>La plateforme pour améliorer vos relations</Text>
       <View style={styles.popularResourcesContainer}>
         <Text style={styles.resourcesTitle}>Ressources Populaires</Text>
-      <View style={styles.cardGroup}>
-      {premiereRessource.map((ressource, index) => (
+        <View style={styles.cardGroup}>
+        <View style={styles.cardGroup}>
+  {premiereRessource.map((ressource, index) => (
     <View key={index} style={styles.card}>
       <Text style={styles.cardTitle}>{ressource.RES_NOM}</Text>
       {isYouTubeLink(ressource.RES_CONTENU) ? (
@@ -90,17 +97,19 @@ function HomeScreen() {
         // Sinon, affichez le texte tronqué
         <Text style={styles.cardText}>{truncateContent(ressource.RES_CONTENU, 75)}</Text>
       )}
-            <Text style={styles.cardCategory}>{ressource.RES_ID} (à modifier)</Text>
-          </View>
-        ))}
-      </View>
+        <Text style={styles.cardCategory}>
+          {findCategoryById(ressource.RES_CAT_ID)?.CAT_NOM}
+        </Text>
+    </View>
+  ))}
+</View>
+</View>
       </View>
       <View style={styles.infoContainer}>
         <Text style={styles.infoTitle}>« Le Projet »</Text>
         <Text style={styles.infoText}>Praesent faucibus, lacus non eleifend rhoncus...</Text>
       </View>
     </ScrollView>
-    <LinkPreview text='This link https://github.com/flyerhq can be extracted from the text' />
     {/* ================================ */}
     </View>
   );
@@ -118,7 +127,6 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
 
 //BARRE DE NAVIGATION
 const Tab = createBottomTabNavigator();
