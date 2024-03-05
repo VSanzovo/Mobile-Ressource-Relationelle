@@ -1,16 +1,18 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import Footer from './Footer';
-import Header from './Header';
-import axios from 'axios';
+import React, {useState, useEffect} from 'react';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useFonts } from 'expo-font';
+import axios from 'axios';
+import SettingsScreen from './vueRessources';
+import  MaterialIcons  from 'react-native-vector-icons/Ionicons';
 
+
+
+//FONCTION PRINCIPALE (PAGE PRINCIPALE)
 function HomeScreen() {
-  const [loaded] = useFonts({
-    ComicSansMS3: require('./font/ComicSansMS3.ttf'),
-    marianne_bold: require('./font/marianne_bold.otf'),
-  });
   
+  //CODE DE FLORIANT JE SAIS PAS CE QU'IL FAIT
   const truncateContent = (content, maxLength) => {
     if (content.length > maxLength) {
       return content.substring(0, maxLength) + '...'; // Ajoutez des points de suspension pour indiquer que le texte a été tronqué
@@ -37,11 +39,18 @@ function HomeScreen() {
     recupererRessources();
   }, []); // Le tableau vide signifie que cela s'exécute une seule fois lors du montage du composant
 
+
+    //CHARGEMENT DES POLICES D'ECRITURE
+  const [loaded] = useFonts({
+    ComicSansMS3: require('./font/ComicSansMS3.ttf'),
+    marianne_bold: require('./font/marianne_bold.otf'),
+  });
+
   if (!loaded) {
     return <Text>Loading...</Text>;
   }
   return (
-    //ICI ON FAIT LA PAGE WEB
+    //ICI ON FAIT LA PAGE CLASSIQUE
     <View >
 
       {/* PAGE SCROLLABLE */}
@@ -75,13 +84,15 @@ function HomeScreen() {
     </View>
   );
 }
+
+//CONSTANTES DE COULEURS
 const _couleurPrimaire = '#007EA7';
 const _couleurSecondaire = '#007EA7';
 
+
+
+//FONCTION QUI VA PERMETTRE D'AFFICHER SUR L'ECRAN
 export default function App() {
-
-
-
   return (
     <NavigationContainer>
       <MyTabs/>
@@ -89,8 +100,9 @@ export default function App() {
   );
 }
 
-const Tab = createBottomTabNavigator();
 
+//BARRE DE NAVIGATION
+const Tab = createBottomTabNavigator();
 function MyTabs() {
   return (
     <Tab.Navigator screenOptions={{
@@ -131,9 +143,7 @@ function MyTabs() {
 }
 
 
-
-
-
+//STYLES EN CSS ?
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
