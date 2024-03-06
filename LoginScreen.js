@@ -8,6 +8,7 @@ const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
+  const [error, setError] = useState(null); // Nouvel état pour gérer les erreurs
 
   const handleLogin = async () => {
     try {
@@ -25,8 +26,8 @@ const LoginScreen = () => {
           ],
         });
       } else {
-        // Authentification échouée, afficher un message d'erreur
-        console.log('Erreur d\'authentification');
+          // Authentification échouée, afficher un message d'erreur à l'utilisateur
+          setError('Mail ou mot de passe inconnu, veuillez réessayer.');
       }
     } catch (error) {
       console.error('Erreur lors de l\'authentification', error);
@@ -36,7 +37,7 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Connexion à l'application Food Seeker</Text>
+      <Text style={styles.title}>Connexion</Text>
       <TextInput
         placeholder="Email"
         value={email}
@@ -51,6 +52,11 @@ const LoginScreen = () => {
         style={styles.input}
       />
       <Button title="Login" onPress={handleLogin} />
+      {error && (
+        <Text style={styles.errorText}>
+          {error}
+        </Text>
+      )}
     </View>
   );
 };
@@ -68,6 +74,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginVertical: 10,
     paddingHorizontal: 10,
+  },
+  errorText: {
+    color: 'red',
+    marginTop: 10,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20, // Ajout d'un espace entre le titre et les champs de saisie
   },
 });
 

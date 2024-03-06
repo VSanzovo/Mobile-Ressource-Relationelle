@@ -7,6 +7,7 @@ import  MaterialIcons  from 'react-native-vector-icons/Ionicons';
 import styles from './style';
 import { View, Text, StyleSheet, ScrollView, Linking } from 'react-native';
 import { LinkPreview } from '@flyerhq/react-native-link-preview';
+import Searchbar from './elements/searchbar';
 
 const _couleurPrimaire = '#007EA7';
 const _couleurSecondaire = '#007EA7';
@@ -74,7 +75,10 @@ function HomeScreen() {
       {/* ================================ */}
         <ScrollView contentContainerStyle={styles.container}>
 
-      <View></View>
+      <View>
+        <Searchbar
+        ></Searchbar>
+      </View>
       <View style={[styles.titleContainer]}>
         <Text style={[styles.titleFirstPart, styles.marianne_bold]}>(RE)</Text>
         <Text style={[styles.titleSecondPart, styles.marianne_bold]}>SOURCES{"\n"}LATIONNELLES</Text>
