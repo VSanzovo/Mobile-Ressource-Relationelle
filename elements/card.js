@@ -12,7 +12,3 @@ export default function Card(props){
         </View>
     )
 }
-
-const styles_card = StyleSheet.create({
-
-})

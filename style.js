@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
         
     },
     account_cardcontainer:{
+        flexGrow: 1,
         flex: 1,
         flexDirection: "row",
         flexWrap: "wrap",
