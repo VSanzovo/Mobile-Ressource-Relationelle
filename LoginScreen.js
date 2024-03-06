@@ -2,23 +2,37 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
 
-  const handleLogin = () => {
-    // Implement your login logic here
-    // Check email and password, navigate to HomeScreen if successful
-    // Example:
-    if (email === 'Test' && password === 'Test') {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Home' }],
-      });
+  const handleLogin = async () => {
+    try {
+      const response = await axios.get(`http://10.167.128.104/app-ressources-relationnelles/web/public/api/connexion/${email}/${password}`);
+      if (response.data) {
+        // Authentification réussie, naviguer vers l'écran d'accueil
+        const userId = response.data.UTI_ID; // Supposons que la clé soit UTI_ID dans la réponse
+        navigation.reset({
+          index: 0,
+          routes: [
+            {
+              name: 'Home',
+              params: { userId }, // Passer l'identifiant comme paramètre
+            },
+          ],
+        });
+      } else {
+        // Authentification échouée, afficher un message d'erreur
+        console.log('Erreur d\'authentification');
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'authentification', error);
     }
   };
+  
 
   return (
     <View style={styles.container}>

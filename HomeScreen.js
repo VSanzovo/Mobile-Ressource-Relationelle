@@ -33,7 +33,7 @@ function HomeScreen() {
   const [categories, setCategories] = useState([]);
   const recupererRessources = async () => {
     try {
-      const response = await axios.get('http://10.167.128.104/app-ressources-relationnelles/web/public/api/recupererRessources');
+      const response = await axios.get('http://10.167.128.104/app-ressources-relationnelles/web/public/api/recupererRessources/a/b');
       const data = response.data;
 
       if (data && data.ressources && data.ressources.length > 0) {
