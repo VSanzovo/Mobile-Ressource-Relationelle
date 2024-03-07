@@ -15,16 +15,10 @@ const LoginScreen = () => {
       const response = await axios.get(`http://10.167.128.104/app-ressources-relationnelles/web/public/api/connexion/${email}/${password}`);
       if (response.data) {
         // Authentification réussie, naviguer vers l'écran d'accueil
-        const userId = response.data.UTI_ID; // Supposons que la clé soit UTI_ID dans la réponse
-        navigation.reset({
-          index: 0,
-          routes: [
-            {
-              name: 'Home',
-              params: { userId }, // Passer l'identifiant comme paramètre
-            },
-          ],
-        });
+        const userId = response.UTI_ID; // Supposons que la clé soit UTI_ID dans la réponse
+        console.log('API Response:', response.data.utilisateur.UTI_ID);
+        navigation.navigate('Home', { userId: response.data.utilisateur.UTI_ID }); // Assurez-vous que UTI_ID est correct
+        
       } else {
           // Authentification échouée, afficher un message d'erreur à l'utilisateur
           setError('Mail ou mot de passe inconnu, veuillez réessayer.');
@@ -34,6 +28,9 @@ const LoginScreen = () => {
     }
   };
   
+  const handleInscription = () => {
+    navigation.navigate('Inscription'); // Naviguer vers la page InscriptionScreen
+  };
 
   return (
     <View style={styles.container}>
@@ -51,12 +48,10 @@ const LoginScreen = () => {
         secureTextEntry
         style={styles.input}
       />
-      <Button title="Login" onPress={handleLogin} />
-      {error && (
-        <Text style={styles.errorText}>
-          {error}
-        </Text>
-      )}
+      <View style={styles.buttonContainer}>
+        <Button title="Login" onPress={handleLogin} />
+        <Button title="Inscription" onPress={handleInscription} />
+      </View>
     </View>
   );
 };
@@ -79,10 +74,16 @@ const styles = StyleSheet.create({
     color: 'red',
     marginTop: 10,
   },
+  buttonContainer: {
+    flexDirection: 'row',  // Affiche les boutons côte à côte
+    justifyContent: 'space-between',  // Les boutons occupent l'espace disponible
+    width: '50%',
+  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20, // Ajout d'un espace entre le titre et les champs de saisie
+    color: '#000080',
+    marginBottom: 10,
   },
 });
 

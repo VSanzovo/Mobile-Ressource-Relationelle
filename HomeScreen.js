@@ -8,6 +8,7 @@ import styles from './style';
 import { View, Text, StyleSheet, ScrollView, Linking } from 'react-native';
 import { LinkPreview } from '@flyerhq/react-native-link-preview';
 import Searchbar from './elements/searchbar';
+import { useRoute } from '@react-navigation/native';
 
 const _couleurPrimaire = '#007EA7';
 const _couleurSecondaire = '#007EA7';
@@ -22,6 +23,10 @@ function HomeScreen() {
     }
     return content;
   };
+
+  // On récupère l'userId de MyTabs()
+  const route = useRoute();
+  const userId = route.params?.userId;
 
   // Savoir si mon contenu est un lien vers YouTube
   const isYouTubeLink = (text) => {
@@ -70,7 +75,8 @@ function HomeScreen() {
   return (
     //ICI ON FAIT LA PAGE CLASSIQUE
     <View >
-
+          <View>
+    </View>
       {/* PAGE SCROLLABLE */}
       {/* ================================ */}
         <ScrollView contentContainerStyle={styles.container}>
@@ -114,7 +120,7 @@ function HomeScreen() {
 </View>
       </View>
     </ScrollView>
-    {/* ================================ */}
+   {/* ================================ */}
     </View>
   );
 };
@@ -125,6 +131,10 @@ function HomeScreen() {
 //BARRE DE NAVIGATION
 const Tab = createBottomTabNavigator();
 function MyTabs() {
+
+  // On récupère l'userId de LoginScreen
+  const route = useRoute();
+  const userId = route.params?.userId;
   return (
     <Tab.Navigator screenOptions={{
       headerStyle: { 
@@ -149,12 +159,12 @@ function MyTabs() {
       },
       
     }} >
-      <Tab.Screen name="Accueil" component={HomeScreen} options={{
+      <Tab.Screen name="Accueil" component={HomeScreen} initialParams={{ userId: userId }} options={{
       tabBarIcon: ({color, size }) => (
         <MaterialIcons name="home-outline" color={color} size={size} />
       ),
     }} />
-      <Tab.Screen name="Compte" component={SettingsScreen} options={{
+      <Tab.Screen name="Compte" component={SettingsScreen} initialParams={{ userId: userId }} options={{
       tabBarIcon: ({ color, size }) => (
         <MaterialIcons name="person-circle-outline" color={color} size={size} />
       ),
