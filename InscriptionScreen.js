@@ -4,9 +4,10 @@ import { useNavigation } from '@react-navigation/native';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { format } from 'date-fns';
+import axios from 'axios';
 
 const InscriptionScreen = () => {
-  const [civilite, setCivilite] = useState('');
+  const [civilite, setCivilite] = useState('Monsieur');
   const [nom, setNom] = useState('');
   const [prenom, setPrenom] = useState('');
   const [adresse, setAdresse] = useState('');
@@ -35,16 +36,41 @@ const handleDateChange = (event, selectedDate) => {
 
   const handleInscription = async () => {
     try {
-        let adresseFormatee = InscriptionScreen.adresse.replace(/\s+/g, '-');
-        const response = await axios.get(`http://10.167.128.104/app-ressources-relationnelles/web/public/api/inscription/${civilite}/${nom}/${prenom}/${adresse}/${codePostal}/${ville}/${numTel}/${email}/${motDePasse}/${confirmationMotDePasse}`);
+        let adresseFormatee = adresse.replace(/\s+/g, '-');
+
+        // Supposez que `dateOfBirth` est votre objet `Date`
+        const dateOfBirth = date; // Remplacez ceci par votre objet Date réel
+
+        // Obtenez les composants de la date (jour, mois, année)
+        const day = dateOfBirth.getDate();
+        const month = dateOfBirth.getMonth() + 1; // Notez que les mois commencent à partir de zéro, donc ajoutez 1
+        const year = dateOfBirth.getFullYear();
+
+        // Créez une chaîne de date au format dd-mm-yyyy
+        const formattedDate = `${day < 10 ? '0' : ''}${day}-${month < 10 ? '0' : ''}${month}-${year}`;
+
+        // Utilisez la variable `formattedDate` comme nécessaire
+        console.log('Civilite :', civilite);
+        console.log('Nom :', nom);
+        console.log('Prénom :', prenom);
+        console.log('Date de naissance :', formattedDate);
+        console.log('Adresse :', adresseFormatee);
+        console.log('Code postal :', codePostal);
+        console.log('Ville :', ville);
+        console.log('Numéro de téléphone :', numTel);
+        console.log('Mail :', email);
+        console.log('Mot de passe :', motDePasse);
+        console.log('Mot de passe confirmé :', confirmationMotDePasse);
+        const response = await axios.get(`http://10.167.128.104/app-ressources-relationnelles/web/public/api/inscription/${civilite}/${nom}/${prenom}/${formattedDate}/${adresseFormatee}/${codePostal}/${ville}/${numTel}/${email}/${motDePasse}/${confirmationMotDePasse}`);
+    //    const response = await axios.get('http://10.167.128.104/app-ressources-relationnelles/web/public/api/inscription/Madame/VONVILLE/Clet/07-03-2024/11-rue-du-cdt/67640/Fegersheim/0641243830/clet.vonville@gmail.com/test/test');
         if (response.data && response.data.utilisateur)  {
           navigation.navigate('Home', { userId: response.data.utilisateur.UTI_ID }); // Assurez-vous que UTI_ID est correct
         } else {
-          setError('Erreur lors de la création du compte, veuillez réessayer.');
+          setError('Erreur lors de la création du compte 1, veuillez réessayer.');
         }
       } catch (error) {
-        console.error('Erreur lors de la création du compte', error);
-        setError('Erreur lors de la création du compte, veuillez réessayer.');
+        console.error('Erreur lors de la création du compte 2', error);
+        setError('Erreur lors de la création du compte 2, veuillez réessayer.');
       }
     };
 
