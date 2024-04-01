@@ -4,7 +4,7 @@ import React from 'react';
 import { Text, View, StyleSheet, ScrollView, TouchableOpacity  } from 'react-native';
 
 import styles from './style';
-import Card from './elements/card';
+import {AccountCard, RessourceCard} from './elements/card';
 import styles_card from './elements/card';
 import  Icons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
@@ -28,38 +28,37 @@ const SettingsScreen = () => {
     <View>
       <ScrollView contentContainerStyle={styles.account}>
           <View style={styles.account_cardcontainer}>
-            <Card>
+            <AccountCard>
             <Icons name="settings" color={'white'} size={30} />
             <Text style={styles.account_cardTitle}>Paramètres</Text>
             <Text style={styles.account_cardcontent}>Permet de modifier les paramètres de l'application</Text>
-            </Card>
+            </AccountCard>
+            
+            <AccountCard>
+            <TouchableOpacity onPress={goToProfilScreen}>
+              <Icons name="person-circle" color={'white'} size={30} />
+              <Text style={styles.account_cardTitle}>Profil</Text>
+              <Text style={styles.account_cardcontent}>Cliquez pour modifier votre profil</Text>
+              </TouchableOpacity>
+            </AccountCard>        
 
-            
-            <Card>
-              <TouchableOpacity onPress={goToProfilScreen}>
-                <Icons name="person-circle" color={'white'} size={30} />
-                <Text style={styles.account_cardTitle}>Profil</Text>
-                <Text style={styles.account_cardcontent}>Cliquez pour modifier votre profil</Text>
-                </TouchableOpacity>
-            </Card>
-            
-            <Card>
+            <AccountCard>
             <Icons name="heart" color={'white'} size={30} />
             <Text style={styles.account_cardTitle}>Favoris</Text>
             <Text style={styles.account_cardcontent}>Affichez vos favoris</Text>
-            </Card>
+            </AccountCard>
 
-            <Card>
+            <AccountCard>
             <Icons name="book" color={'white'} size={30} />
             <Text style={styles.account_cardTitle}>Ressources</Text>
             <Text style={styles.account_cardcontent}>Affichez vos ressources crées</Text>
-            </Card>
+            </AccountCard>
 
-            <Card>
+            <AccountCard>
             <Icons name="eye" color={'white'} size={30} />
             <Text style={styles.account_cardTitle}>Ressources suivies</Text>
             <Text style={styles.account_cardcontent}>Affichez vos ressources suivies</Text>
-            </Card>
+            </AccountCard>
           </View>
       </ScrollView>
     </View>

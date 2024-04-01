@@ -1,14 +1,25 @@
 import React from 'react';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
-import styles from '../style';
+import cardStyles from '../style';
 
 
-export default function Card(props){
+export function AccountCard(props){
     return (
-        <View style={styles.account_card}>
-            <View style = {styles.account_cardcontent}>
+        <View style={cardStyles.account_card}>
+            <View style = {cardStyles.account_cardcontent}>
                 {props.children}
             </View>
         </View>
     )
+}
+
+export function RessourceCard(props) {
+    return (
+        <View style= {cardStyles.ressource_card}>
+            <View style = {cardStyles.ressource_cardcontent}>
+                {props.children}
+            </View>
+        </View>
+    )
+    
 }
