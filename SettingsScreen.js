@@ -34,14 +34,15 @@ const SettingsScreen = () => {
             <Text style={styles.account_cardcontent}>Permet de modifier les paramètres de l'application</Text>
             </Card>
 
-            <TouchableOpacity onPress={goToProfilScreen}>
+            
             <Card>
-              <Icons name="person-circle" color={'white'} size={30} />
-              <Text style={styles.account_cardTitle}>Profil</Text>
-              <Text style={styles.account_cardcontent}>Cliquez pour modifier votre profil</Text>
+              <TouchableOpacity onPress={goToProfilScreen}>
+                <Icons name="person-circle" color={'white'} size={30} />
+                <Text style={styles.account_cardTitle}>Profil</Text>
+                <Text style={styles.account_cardcontent}>Cliquez pour modifier votre profil</Text>
+                </TouchableOpacity>
             </Card>
-            </TouchableOpacity>
-
+            
             <Card>
             <Icons name="heart" color={'white'} size={30} />
             <Text style={styles.account_cardTitle}>Favoris</Text>

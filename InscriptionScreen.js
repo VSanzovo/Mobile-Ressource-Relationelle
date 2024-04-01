@@ -19,6 +19,7 @@ const InscriptionScreen = () => {
   const [confirmationMotDePasse, setConfirmationMotDePasse] = useState('');
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [error, setError] = useState(null); // Nouvel état pour gérer les erreurs
 
 const handleDateChange = (event, selectedDate) => {
   if (selectedDate && event.type === 'set') {
@@ -61,16 +62,15 @@ const handleDateChange = (event, selectedDate) => {
         console.log('Mail :', email);
         console.log('Mot de passe :', motDePasse);
         console.log('Mot de passe confirmé :', confirmationMotDePasse);
-        const response = await axios.get(`http://10.167.128.104/app-ressources-relationnelles/web/public/api/inscription/${civilite}/${nom}/${prenom}/${formattedDate}/${adresseFormatee}/${codePostal}/${ville}/${numTel}/${email}/${motDePasse}/${confirmationMotDePasse}`);
+        const response = await axios.get(`http://192.168.202.12/app-ressources-relationnelles/web/public/api/inscription/${civilite}/${nom}/${prenom}/${formattedDate}/${adresseFormatee}/${codePostal}/${ville}/${numTel}/${email}/${motDePasse}/${confirmationMotDePasse}`);
     //    const response = await axios.get('http://10.167.128.104/app-ressources-relationnelles/web/public/api/inscription/Madame/VONVILLE/Clet/07-03-2024/11-rue-du-cdt/67640/Fegersheim/0641243830/clet.vonville@gmail.com/test/test');
         if (response.data && response.data.utilisateur)  {
           navigation.navigate('Home', { userId: response.data.utilisateur.UTI_ID }); // Assurez-vous que UTI_ID est correct
         } else {
-          setError('Erreur lors de la création du compte 1, veuillez réessayer.');
+          setError('Erreur lors de la création du compte, veuillez réessayer.');
         }
       } catch (error) {
-        console.error('Erreur lors de la création du compte 2', error);
-        setError('Erreur lors de la création du compte 2, veuillez réessayer.');
+        setError('Erreur lors de la création du compte, veuillez réessayer.');
       }
     };
 
@@ -168,6 +168,7 @@ const handleDateChange = (event, selectedDate) => {
       {/* Autres champs d'inscription */}
       <Button title="Valider" onPress={handleInscription} />
     </View>
+      {error !== '' && <Text style={styles.errorMessage}>{error}</Text>}
     </ScrollView>
   );
 };

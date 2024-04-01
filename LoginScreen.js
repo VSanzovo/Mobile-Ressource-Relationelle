@@ -12,7 +12,7 @@ const LoginScreen = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.get(`http://10.167.128.104/app-ressources-relationnelles/web/public/api/connexion/${email}/${password}`);
+      const response = await axios.get(`http://192.168.202.12/app-ressources-relationnelles/web/public/api/connexion/${email}/${password}`);
       if (response.data) {
         // Authentification réussie, naviguer vers l'écran d'accueil
         const userId = response.UTI_ID; // Supposons que la clé soit UTI_ID dans la réponse
@@ -22,6 +22,7 @@ const LoginScreen = () => {
       } else {
           // Authentification échouée, afficher un message d'erreur à l'utilisateur
           setError('Mail ou mot de passe inconnu, veuillez réessayer.');
+      //    console.error('Mail ou mot de passe inconnu, veuillez réessayer.');
       }
     } catch (error) {
       console.error('Erreur lors de l\'authentification', error);
@@ -52,7 +53,9 @@ const LoginScreen = () => {
         <Button title="Login" onPress={handleLogin} />
         <Button title="Inscription" onPress={handleInscription} />
       </View>
+      {error !== '' && <Text style={styles.errorMessage}>{error}</Text>}
     </View>
+    
   );
 };
 

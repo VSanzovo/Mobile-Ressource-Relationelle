@@ -20,7 +20,7 @@ const ProfilScreen = ({ route }) => {
 
   const recupereInfoUtilisateur = async () => {
     try {
-      const response = await axios.get(`http://10.167.128.104/app-ressources-relationnelles/web/public/api/recupererInfoUtilisateur/${userId}/b`);
+      const response = await axios.get(`http://192.168.202.12/app-ressources-relationnelles/web/public/api/recupererInfoUtilisateur/${userId}/b`);
       if (response.data && response.data.utilisateur) {
         const utilisateur = response.data.utilisateur[0];
         setUserProfile({
@@ -54,7 +54,7 @@ const ProfilScreen = ({ route }) => {
   const handleEditProfile = async () => {
     try {
       let adresseFormatee = editedProfile.adresse.replace(/\s+/g, '-');
-      const response = await axios.get(`http://10.167.128.104/app-ressources-relationnelles/web/public/api/modifier_utilisateur/${userId}/${editedProfile.nom}/${editedProfile.prenom}/${adresseFormatee}/${editedProfile.codePostal}/${editedProfile.ville}/${editedProfile.telephone}`);
+      const response = await axios.get(`http://192.168.202.12/app-ressources-relationnelles/web/public/api/modifier_utilisateur/${userId}/${editedProfile.nom}/${editedProfile.prenom}/${adresseFormatee}/${editedProfile.codePostal}/${editedProfile.ville}/${editedProfile.telephone}`);
       if (response.data && response.data.utilisateur)  {
         setSuccessMessage('Profil modifié avec succès !');
         // Actualisez les informations du profil après la modification
