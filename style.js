@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     },
     card: {
       width: '48%',
+      flexBasis: '48%',
       backgroundColor: '#ffffff',
       marginBottom: 10,
       padding: 10,
@@ -110,7 +111,8 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 1, height: 1},
         shadowColor: '#333333',
         shadowOpacity: 1,
-        width: '45%',
+        minWidth: '30%',
+        flexBasis: '45%',
         shadowRadius: 10,
         color: 'white',
         minHeight: 200,
@@ -123,12 +125,10 @@ const styles = StyleSheet.create({
     },
     account_cardcontainer:{
         flexGrow: 1,
-        flex: 1,
         flexDirection: "row",
         flexWrap: "wrap",
-        // borderColor: 'red',
-        // borderWidth:1,
         justifyContent: 'space-between',
+        paddingHorizontal:0,
     },
     account_cardcontent:{
         color: '#efefef',
@@ -138,7 +138,37 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         color: 'white',
         fontSize: 25,
-    }
+    },
+    ressource_cardTitle:{
+      paddingTop: 5,
+      color: 'black',
+      fontSize: 20,
+      paddingLeft: 15,
+      paddingRight: 15,
+      paddingBottom: 5,
+      borderBottomColor: 'black',
+      borderBottomWidth: 1,
+    },
+    ressource_cardcontainer:{
+    },
+    ressource_card:{
+      borderRadius: 6,
+      elevation: 3,
+      backgroundColor: 'white',
+      shadowOffset: { width: 1, height: 1},
+      shadowColor: '#333333',
+      shadowOpacity: 1,
+      minWidth: '30%',
+      flexBasis: '45%',
+      shadowRadius: 10,
+      color: 'white',
+      minHeight: 200,
+      margin: 10,
+
+    },
+    link_preview:{
+     width:'10%',
+    },
   });
 
   export default styles;
