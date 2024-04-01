@@ -9,7 +9,7 @@ import { View, Text, StyleSheet, ScrollView, Linking } from 'react-native';
 import { LinkPreview } from '@flyerhq/react-native-link-preview';
 import Searchbar from './elements/searchbar';
 import { useRoute } from '@react-navigation/native';
-import {AccountCard, RessourceCard} from './elements/card';
+
 const _couleurPrimaire = '#007EA7';
 const _couleurSecondaire = '#007EA7';
 
@@ -92,42 +92,11 @@ function HomeScreen() {
       <Text style={styles.subtitle}>La plateforme pour améliorer vos relations</Text>
       <View style={styles.popularResourcesContainer}>
         <Text style={styles.resourcesTitle}>Ressources Populaires</Text>
-
-
-        <View style={styles.ressource_cardcontainer}>
-        {premiereRessource.map((ressource, index) => (
-
-          <RessourceCard>
-
-            {/* TITLE */}
-            <Text style={styles. ressource_cardTitle}>{ressource.RES_NOM}</Text>
-
-            {/* IS CONTENU A YOUTUBE LINK */}
-            {isYouTubeLink(ressource.RES_CONTENU) ? (
-
-              <LinkPreview
-                text={ressource.RES_CONTENU}
-                visible={false}
-                style={ styles.link_preview}
-                onPress={(url) => {
-                  Linking.openURL(url);
-                }}
-              />
-            ) : (
-              <Text style={styles.cardText}>{truncateContent(ressource.RES_CONTENU, 75)}</Text>
-            )}
-            <Text style={styles.cardCategory}>{findCategoryById(ressource.RES_CAT_ID)?.CAT_NOM}</Text>
-          </RessourceCard>
-          ))}
-        </View>
-
-
-
         <View style={styles.cardGroup}>
         <View style={styles.cardGroup}>
   {premiereRessource.map((ressource, index) => (
     <View key={index} style={styles.card}>
-      <Text style={styles.ressourceCardTitle}>{ressource.RES_NOM}</Text>
+      <Text style={styles.cardTitle}>{ressource.RES_NOM}</Text>
       {isYouTubeLink(ressource.RES_CONTENU) ? (
         // Si le contenu est un lien YouTube, utilisez LinkPreview
         <LinkPreview
